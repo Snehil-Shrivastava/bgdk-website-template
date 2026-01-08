@@ -3,7 +3,6 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
-import Link from "next/link";
 
 const Navbar = () => {
   const navbarContainerRef = useRef(null);

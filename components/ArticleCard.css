@@ -1,0 +1,45 @@
+/* .articleCardContainer {
+  width: 680px;
+  height: 400px;
+
+  transition: all 0.5s ease;
+}
+
+.articleCardContainerEnlarged {
+  width: 1700px;
+  height: 85vh;
+} */
+
+.articleCardContainer {
+  /* Use relative units or calculated max-widths for better responsiveness */
+  width: 680px;
+  height: 400px;
+
+  /* Critical for smoothness */
+  z-index: 10;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Smoother bezier curve */
+  transform-origin: center;
+  /* overflow: hidden; */
+}
+
+.articleCardContainerEnlarged {
+  /* Your desired expanded size */
+  /* width: 100vw; */
+  width: 1700px;
+  height: 85vh;
+
+  /* Ensure it sits on top of other cards when expanded */
+  z-index: 50;
+
+  /* Negative margins help it break out of the flex flow visually without jerking */
+  margin-left: -20%;
+  margin-right: -20%;
+
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Optional: Ensure the image scales smoothly inside */
+.articleCardContainer img,
+.articleCardContainerEnlarged img {
+  transition: transform 0.6s ease;
+}
