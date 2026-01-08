@@ -58,12 +58,12 @@ const Navbar = () => {
         ref={navbarLogoContainerRef}
         className="absolute top-0 left-0 w-full opacity-0 bg-background pt-8 pb-4 flex flex-col gap-5"
       >
-        <div className="flex justify-center items-center gap-20 h-full uppercase text-sm">
+        <div className="h-full uppercase text-sm inline mx-auto">
           {categories.map((category, index) => (
             <div
               key={index}
               onClick={() => handleCategoryClick(category)}
-              className={`cursor-pointer transition-colors duration-200 ${
+              className={`cursor-pointer transition-colors duration-200 inline mr-20 ${
                 selectedCategory === category
                   ? "text-black font-semibold"
                   : "text-neutral-600 hover:text-black"

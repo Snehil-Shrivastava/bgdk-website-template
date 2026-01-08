@@ -5,21 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import ArticleCard from "@/components/ArticleCard";
-
-export interface Article {
-  id: string;
-  title: string;
-  content: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cover: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  author: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  category: any;
-  publishedAt: Date;
-}
-
-const STRAPI_URL = "http://127.0.0.1:1337";
+import { useArticles } from "@/context/ArticlesContext";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -27,18 +13,9 @@ const Article = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
-
-  const [articles, setArticles] = useState<Article[]>([]);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  // const formatDate = (date: Date) => {
-  //   const options: Intl.DateTimeFormatOptions = {
-  //     year: "numeric",
-  //     month: "2-digit",
-  //     day: "2-digit",
-  //   };
-  //   return new Date(date).toLocaleDateString("en-US", options);
-  // };
+  const { filteredArticles, strapiURL } = useArticles();
 
   useEffect(() => {
     const smoother = ScrollSmoother.create({
@@ -47,22 +24,6 @@ const Article = () => {
       smooth: 1.7,
       effects: true,
     });
-
-    let isMounted = true;
-
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch(`${STRAPI_URL}/api/articles?populate=*`);
-        const data = await response.json();
-        if (isMounted && data.data) {
-          setArticles(data.data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch articles", error);
-      }
-    };
-
-    fetchArticles();
 
     // Scroll squeeze effect
     const handleScroll = () => {
@@ -96,7 +57,6 @@ const Article = () => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      isMounted = false;
       window.removeEventListener("scroll", handleScroll);
       if (scrollTimeout.current) {
         clearTimeout(scrollTimeout.current);
@@ -115,7 +75,7 @@ const Article = () => {
             ref={containerRef}
             className="grid grid-cols-1 gap-8 origin-center will-change-transform w-full max-w-145 mx-auto"
           >
-            <ArticleCard articles={articles} strapiURL={STRAPI_URL} />
+            <ArticleCard articles={filteredArticles} strapiURL={strapiURL} />
           </div>
         </div>
       </div>
