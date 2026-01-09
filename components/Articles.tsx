@@ -68,7 +68,7 @@ const Article = () => {
         <div className="w-full mx-auto py-20">
           <div
             ref={containerRef}
-            className="grid grid-cols-1 gap-8 origin-center will-change-transform w-full mx-auto"
+            className="grid grid-cols-1 gap-8 origin-center will-change-transform w-full mx-auto place-items-center"
           >
             <ArticleCard articles={filteredArticles} strapiURL={strapiURL} />
           </div>

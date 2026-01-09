@@ -1,28 +1,15 @@
-"use client";
+// "use client";
 
-import Image from "next/image";
-import "./ArticleCard.css";
+// import Image from "next/image";
+// import "./ArticleCard.css";
 
-import { useRef } from "react";
-import { Flip } from "gsap/all";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { useRef } from "react";
+// import { Flip } from "gsap/all";
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { Article } from "@/context/ArticlesContext";
 
-import dog from "@/public/dog-placeholder.jpg";
-export interface Article {
-  id: string;
-  title: string;
-  content: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cover: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  author: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  category: any;
-  publishedAt: Date;
-}
-
-gsap.registerPlugin(Flip, ScrollTrigger);
+// gsap.registerPlugin(Flip, ScrollTrigger);
 
 // const SingleCard = ({
 //   article,
@@ -35,7 +22,7 @@ gsap.registerPlugin(Flip, ScrollTrigger);
 //   const imageOuterContainerRef = useRef<HTMLDivElement>(null);
 //   const imageInnerContainerRef = useRef<HTMLDivElement>(null);
 //   const imageRef = useRef<HTMLImageElement>(null);
-//   const textContentRef = useRef<HTMLDivElement>(null); // Add this ref
+//   const textContentRef = useRef<HTMLDivElement>(null);
 //   const isExpanded = useRef(false);
 
 //   const toggleAnimation = () => {
@@ -43,14 +30,14 @@ gsap.registerPlugin(Flip, ScrollTrigger);
 //     const imageOuterContainer = imageOuterContainerRef.current;
 //     const imageInnerContainer = imageInnerContainerRef.current;
 //     const image = imageRef.current;
-//     const textContent = textContentRef.current; // Get the ref
+//     const textContent = textContentRef.current;
 
 //     if (
 //       !mainContainer ||
 //       !imageOuterContainer ||
 //       !imageInnerContainer ||
 //       !image ||
-//       !textContent // Add check
+//       !textContent
 //     )
 //       return;
 
@@ -82,23 +69,29 @@ gsap.registerPlugin(Flip, ScrollTrigger);
 //         0
 //       );
 
-//       // Remove 'hide' class after animation completes
 //       tl.call(
 //         () => {
 //           textContent.classList.remove("hide");
 //         },
 //         [],
 //         1.5
-//       ); // At 1.5 seconds (when animation ends)
+//       );
 
 //       tl.to(textContent, {
+//         display: "block",
 //         opacity: 1,
+//         duration: 0.5,
 //       });
 //     } else {
 //       // === GO SMALL ===
 
-//       // Add 'hide' class immediately when collapsing
 //       textContent.classList.add("hide");
+
+//       tl.to(textContent, {
+//         display: "none",
+//         opacity: 0,
+//         duration: 0.01,
+//       });
 
 //       const state = Flip.getState([mainContainer, imageOuterContainer]);
 
@@ -122,10 +115,6 @@ gsap.registerPlugin(Flip, ScrollTrigger);
 //         },
 //         0
 //       );
-
-//       tl.to(textContent, {
-//         opacity: 1,
-//       });
 //     }
 
 //     tl.eventCallback("onComplete", () => {
@@ -135,13 +124,13 @@ gsap.registerPlugin(Flip, ScrollTrigger);
 
 //   return (
 //     <article
-//       className={`relative select-none w-170 h-110 z-50 left-1/2 -translate-x-1/2`}
+//       className={`relative select-none w-170 h-110 z-50 left-1/2 -translate-x-1/2 will-change-transform`}
 //       ref={mainContainerRef}
+//       onClick={toggleAnimation}
 //     >
 //       <div
 //         ref={imageOuterContainerRef}
 //         className={`relative cursor-pointer w-full h-full flex gap-20`}
-//         onClick={toggleAnimation}
 //       >
 //         <div ref={imageInnerContainerRef} className="w-170 h-110 shrink-0">
 //           <Image
@@ -153,18 +142,19 @@ gsap.registerPlugin(Flip, ScrollTrigger);
 //             width={680}
 //             height={440}
 //           />
-//         </div>
 
-//         {/* Text Content - Add ref here */}
-//         <div className="flex flex-col w-70 items-end absolute top-0 -left-85 pointer-events-none">
-//           <div className="w-12 h-12 bg-black mb-3" />
-//           <h3 className="text-2xl font-medium text-gray-800 text-end">
-//             {article.title}
-//           </h3>
-//           <span className="text-neutral-600">{article.author.name}</span>
-//           <span className="text-neutral-600 uppercase font-semibold">
-//             {article.category.name}
-//           </span>
+//           <div className="absolute top-0 -left-85 w-70 flex items-end">
+//             <div className="flex flex-col w-70 items-end pointer-events-none">
+//               <div className="w-12 h-12 bg-black mb-3" />
+//               <h3 className="text-2xl font-medium text-gray-800 text-end">
+//                 {article.title}
+//               </h3>
+//               <span className="text-neutral-600">{article.author.name}</span>
+//               <span className="text-neutral-600 uppercase font-semibold">
+//                 {article.category.name}
+//               </span>
+//             </div>
+//           </div>
 //         </div>
 
 //         <div ref={textContentRef} className="hide opacity-0">
@@ -180,6 +170,51 @@ gsap.registerPlugin(Flip, ScrollTrigger);
 //   );
 // };
 
+// const ArticleCard = ({
+//   articles,
+//   strapiURL,
+// }: {
+//   articles: Article[];
+//   strapiURL: string;
+// }) => {
+//   return (
+//     <>
+//       {articles.map((article) => (
+//         <SingleCard key={article.id} article={article} strapiURL={strapiURL} />
+//       ))}
+//     </>
+//   );
+// };
+
+// export default ArticleCard;
+
+"use client";
+
+import Image from "next/image";
+import "./ArticleCard.css";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { Flip } from "gsap/all";
+import { Article } from "@/context/ArticlesContext";
+
+gsap.registerPlugin(Flip);
+
+/* ---------------- CONSTANTS ---------------- */
+
+const COLLAPSED = {
+  width: 680,
+  height: 440,
+};
+
+const EXPANDED = {
+  outerWidth: 23000,
+  height: 1100,
+  innerWidth: 1400,
+};
+
+/* ---------------- SINGLE CARD ---------------- */
+
 const SingleCard = ({
   article,
   strapiURL,
@@ -187,157 +222,125 @@ const SingleCard = ({
   article: Article;
   strapiURL: string;
 }) => {
-  const mainContainerRef = useRef<HTMLDivElement>(null);
-  const imageOuterContainerRef = useRef<HTMLDivElement>(null);
-  const imageInnerContainerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const textContentRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+
   const isExpanded = useRef(false);
+  const isAnimating = useRef(false);
 
   const toggleAnimation = () => {
-    const mainContainer = mainContainerRef.current;
-    const imageOuterContainer = imageOuterContainerRef.current;
-    const imageInnerContainer = imageInnerContainerRef.current;
-    const image = imageRef.current;
-    const textContent = textContentRef.current;
+    if (isAnimating.current) return;
 
-    if (
-      !mainContainer ||
-      !imageOuterContainer ||
-      !imageInnerContainer ||
-      !image ||
-      !textContent
-    )
-      return;
+    const main = mainRef.current;
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    const text = textRef.current;
 
-    const tl = gsap.timeline();
+    if (!main || !outer || !inner || !text) return;
+
+    isAnimating.current = true;
+
+    const state = Flip.getState([main, outer]);
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.inOut" },
+      onComplete: () => {
+        isExpanded.current = !isExpanded.current;
+        isAnimating.current = false;
+      },
+    });
 
     if (!isExpanded.current) {
-      // === GO BIG ===
+      // ===== EXPAND =====
 
-      const state = Flip.getState([mainContainer, imageOuterContainer]);
-
-      imageOuterContainer.style.width = "23000px";
-      mainContainer.style.height = "1100px";
-      imageOuterContainer.style.height = "1100px";
-
-      Flip.from(state, {
-        duration: 1.5,
-        ease: "power3.inOut",
-        zIndex: 51,
+      gsap.set(outer, {
+        width: EXPANDED.outerWidth,
+        height: EXPANDED.height,
       });
+
+      gsap.set(main, { height: EXPANDED.height });
+
+      Flip.from(state, { duration: 1.5, zIndex: 51 });
 
       tl.to(
-        imageInnerContainer,
+        inner,
         {
-          width: "1400px",
-          height: "1100px",
-          duration: 1.5,
-          ease: "power3.inOut",
+          width: EXPANDED.innerWidth,
+          height: EXPANDED.height,
+          duration: 1.6,
         },
         0
-      );
-
-      tl.call(
-        () => {
-          textContent.classList.remove("hide");
-        },
-        [],
-        1.5
-      );
-
-      tl.to(textContent, {
-        opacity: 1,
-        duration: 0.5,
-      });
-
-      // Add horizontal scroll after expansion completes
-      // tl.call(
-      //   () => {
-      //     if (!imageOuterContainer) return;
-
-      //     const scrollWidth = imageOuterContainer.scrollWidth;
-      //     const containerWidth = imageOuterContainer.offsetWidth;
-
-      //     // Create horizontal scroll animation
-      //     scrollTriggerInstance.current = ScrollTrigger.create({
-      //       trigger: mainContainer,
-      //       start: "top top",
-      //       end: () => `+=${scrollWidth - containerWidth}`,
-      //       pin: true,
-      //       scrub: 1,
-      //       onUpdate: (self) => {
-      //         const scrollAmount =
-      //           self.progress * (scrollWidth - containerWidth);
-      //         gsap.set(imageOuterContainer, { x: -scrollAmount });
-      //       },
-      //     });
-      //   },
-      //   [],
-      //   1.5
-      // );
+      )
+        .set(text, { display: "block" })
+        .to(text, { autoAlpha: 1, duration: 0.4 });
     } else {
-      // === GO SMALL ===
+      // ===== COLLAPSE =====
 
-      textContent.classList.add("hide");
-
-      const state = Flip.getState([mainContainer, imageOuterContainer]);
-
-      imageOuterContainer.style.width = "";
-      mainContainer.style.height = "";
-      imageOuterContainer.style.height = "";
-
-      Flip.from(state, {
-        duration: 1.5,
-        ease: "power3.inOut",
-        zIndex: 51,
+      tl.to(text, { autoAlpha: 0, duration: 0.2 }).set(text, {
+        display: "none",
       });
 
       tl.to(
-        imageInnerContainer,
+        inner,
         {
-          width: "680px",
-          height: "440px",
-          duration: 1.5,
-          ease: "power3.inOut",
+          width: COLLAPSED.width,
+          height: COLLAPSED.height,
         },
         0
       );
 
-      tl.to(textContent, {
-        opacity: 0,
-        duration: 0.1,
-      });
-    }
+      gsap.set(outer, { width: "", height: "" });
+      gsap.set(main, { height: "" });
 
-    tl.eventCallback("onComplete", () => {
-      isExpanded.current = !isExpanded.current;
-    });
+      Flip.from(state, { duration: 1.5, zIndex: 51 });
+
+      // tl.to(
+      //   inner,
+      //   {
+      //     width: COLLAPSED.width,
+      //     height: COLLAPSED.height,
+      //     duration: 0.8,
+      //   },
+      //   0
+      // );
+    }
   };
 
   return (
     <article
-      className={`relative select-none w-170 h-110 z-50 left-1/2 -translate-x-1/2 will-change-transform`}
-      ref={mainContainerRef}
+      ref={mainRef}
       onClick={toggleAnimation}
+      className="relative select-none w-170 h-110 z-50 will-change-transform"
     >
+      <div className="absolute top-0 -left-85 w-70 flex items-end pointer-events-none">
+        <div className="flex flex-col w-70 items-end">
+          <div className="w-12 h-12 bg-black mb-3" />
+          <h3 className="text-2xl font-medium text-gray-800 text-end">
+            {article.title}
+          </h3>
+          <span className="text-neutral-600">{article.author.name}</span>
+          <span className="text-neutral-600 uppercase font-semibold">
+            {article.category.name}
+          </span>
+        </div>
+      </div>
       <div
-        ref={imageOuterContainerRef}
-        className={`relative cursor-pointer w-full h-full flex gap-20`}
+        ref={outerRef}
+        className="relative cursor-pointer w-full h-full flex gap-20"
       >
-        <div ref={imageInnerContainerRef} className="w-170 h-110 shrink-0">
+        <div ref={innerRef} className="w-170 h-110 shrink-0 overflow-hidden">
           <Image
-            className="w-full h-full"
             src={strapiURL + article.cover.url}
             alt={article.title}
+            width={COLLAPSED.width}
+            height={COLLAPSED.height}
             priority
-            ref={imageRef}
-            width={680}
-            height={440}
+            className="w-full h-full object-cover"
           />
 
-          <div className="absolute top-0 -left-85 w-70 flex items-end">
-            <div className="flex flex-col w-70 items-end pointer-events-none">
+          <div className="absolute top-0 -left-85 w-70 flex items-end pointer-events-none">
+            <div className="flex flex-col w-70 items-end">
               <div className="w-12 h-12 bg-black mb-3" />
               <h3 className="text-2xl font-medium text-gray-800 text-end">
                 {article.title}
@@ -350,21 +353,18 @@ const SingleCard = ({
           </div>
         </div>
 
-        <div ref={textContentRef} className="hide opacity-0 flex">
+        <div ref={textRef} className="opacity-0 hidden">
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
-            modi, fugit ducimus omnis eligendi totam numquam dolore nemo commodi
-            sapiente esse. Cum iste aliquam rerum, aut explicabo corporis
-            delectus obcaecati!
+            modi, fugit ducimus omnis eligendi totam numquam dolore nemo.
           </p>
-          <div>
-            <Image src={dog} alt="dog-placeholder" />
-          </div>
         </div>
       </div>
     </article>
   );
 };
+
+/* ---------------- LIST ---------------- */
 
 const ArticleCard = ({
   articles,
@@ -373,13 +373,9 @@ const ArticleCard = ({
   articles: Article[];
   strapiURL: string;
 }) => {
-  return (
-    <>
-      {articles.map((article) => (
-        <SingleCard key={article.id} article={article} strapiURL={strapiURL} />
-      ))}
-    </>
-  );
+  return articles.map((article) => (
+    <SingleCard key={article.id} article={article} strapiURL={strapiURL} />
+  ));
 };
 
 export default ArticleCard;
