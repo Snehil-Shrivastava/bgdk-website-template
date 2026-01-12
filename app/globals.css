@@ -32,3 +32,11 @@ body {
 .hide {
   display: none;
 }
+
+/* ArticleCard.css */
+.horizontal-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+}
